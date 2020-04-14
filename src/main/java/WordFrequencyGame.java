@@ -10,11 +10,11 @@ public class WordFrequencyGame {
             try {
 
                 //split the input string with 1 to n pieces of spaces
-                String[] arr = inputStr.split("\\s+");
+                String[] words = inputStr.split("\\s+");
 
                 List<WordInfo> wordInfoList = new ArrayList<>();
-                for (String s : arr) {
-                    WordInfo wordInfo = new WordInfo(s, 1);
+                for (String word : words) {
+                    WordInfo wordInfo = new WordInfo(word, 1);
                     wordInfoList.add(wordInfo);
                 }
 
@@ -28,15 +28,15 @@ public class WordFrequencyGame {
                 }
                 wordInfoList = list;
 
-                wordInfoList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
+                wordInfoList.sort((firstWordInfo, secondWordInfo) -> secondWordInfo.getWordCount() - firstWordInfo.getWordCount());
 
                 StringJoiner joiner = new StringJoiner("\n");
-                for (WordInfo w : wordInfoList) {
-                    String s = w.getWord() + " " + w.getWordCount();
-                    joiner.add(s);
+                for (WordInfo wordInfo : wordInfoList) {
+                    String wordWithCount = wordInfo.getWord() + " " + wordInfo.getWordCount();
+                    joiner.add(wordWithCount);
                 }
                 return joiner.toString();
-            } catch (Exception e) {
+            } catch (Exception exception) {
                 return "Calculate Error";
             }
         }
@@ -45,7 +45,6 @@ public class WordFrequencyGame {
     private Map<String, List<WordInfo>> getListMap(List<WordInfo> wordInfoList) {
         Map<String, List<WordInfo>> map = new HashMap<>();
         for (WordInfo wordInfo : wordInfoList) {
-//       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
             if (!map.containsKey(wordInfo.getWord())) {
                 ArrayList arr = new ArrayList<>();
                 arr.add(wordInfo);
