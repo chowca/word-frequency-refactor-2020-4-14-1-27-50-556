@@ -1,15 +1,7 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.io.CharArrayWriter;
-
-import java.time.LocalDateTime;
+import java.util.*;
 
 public class WordFrequencyGame {
     public String getResult(String inputStr) {
-
 
         if (inputStr.split("\\s+").length == 1) {
             return inputStr + " 1";
