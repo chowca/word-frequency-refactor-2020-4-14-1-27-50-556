@@ -3,3 +3,5 @@
 3. Optimize imports
 4. Rename
 5. Magic String
+6. Extract methods
+7. Revise Logic
