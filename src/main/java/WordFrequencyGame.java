@@ -1,20 +1,15 @@
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class WordFrequencyGame {
 
     public static final String SPACE_PATTERN = "\\s+";
     public static final String NEWLINE_DELIMITER = "\n";
-    public static final String CALCULATE_ERROR = "Calculate Error";
     public static final String SPACE_DELIMITER = " ";
 
     public String getResult(String sentence) {
-        try {
             List<WordInfo> wordInfoList = calculateWordFrequency(sentence);
+            wordInfoList = sortWordInfoList(wordInfoList);
             return formatWordFrequencyResult(wordInfoList);
-        } catch (Exception exception) {
-            return CALCULATE_ERROR;
-        }
     }
 
     private List<WordInfo> calculateWordFrequency(String sentence) {
@@ -24,14 +19,18 @@ public class WordFrequencyGame {
             int count = Collections.frequency(words, word);
             wordInfoList.add(new WordInfo(word, count));
         }
-        wordInfoList.sort((firstWordInfo, secondWordInfo) -> secondWordInfo.getWordCount() - firstWordInfo.getWordCount());
+        return wordInfoList;
+    }
+
+    private List<WordInfo> sortWordInfoList(List<WordInfo> wordInfoList) {
+        wordInfoList.sort((firstWordInfo, secondWordInfo) -> secondWordInfo.getCount() - firstWordInfo.getCount());
         return wordInfoList;
     }
 
     private String formatWordFrequencyResult(List<WordInfo> wordInfoList) {
         StringJoiner joiner = new StringJoiner(NEWLINE_DELIMITER);
         for (WordInfo wordInfo : wordInfoList) {
-            String wordWithCount = wordInfo.getWord() + SPACE_DELIMITER + wordInfo.getWordCount();
+            String wordWithCount = wordInfo.getWord() + SPACE_DELIMITER + wordInfo.getCount();
             joiner.add(wordWithCount);
         }
         return joiner.toString();
